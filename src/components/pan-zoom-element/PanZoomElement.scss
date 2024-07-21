@@ -1,0 +1,11 @@
+.draggable-zoomable-container {
+    position: relative;
+    transform-origin: 0 0;
+    cursor: grab;
+    user-select: none; /* Prevent text selection while dragging */
+  }
+  
+  .draggable-zoomable-container:active {
+    cursor: grabbing;
+  }
+  
