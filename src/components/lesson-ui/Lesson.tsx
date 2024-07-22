@@ -2,21 +2,52 @@ import React from "react";
 import PanZoomElement from "../pan-zoom-element/PanZoomElement";
 import { Card, CardText, Col } from "reactstrap";
 
-interface LessonProps {}
+interface LessonProps {
+  text: string;
+  currentPosition: number;
+  incorrectPositions: number[];
+}
 
-const Lesson: React.FC<LessonProps> = () => {
+const Lesson: React.FC<LessonProps> = ({
+  text,
+  currentPosition,
+  incorrectPositions,
+}) => {
   return (
-      <PanZoomElement>
-        <Col md="6" lg="8">
-          <Card body className="text-center">
-            <CardText>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Sapiente, eos ad. Accusantium, labore a eum quaerat itaque
-              voluptates laborum suscipit alias
-            </CardText>
-          </Card>
-        </Col>
-      </PanZoomElement>
+    <PanZoomElement>
+      <Col md="6" lg="8">
+        <Card body className="text-center">
+          <CardText
+            style={{
+              textAlign: "left",
+              fontSize: "22px",
+              letterSpacing: "1px",
+            }}
+          >
+            {text.split("").map((char, index) => {
+              const isIncorrect = incorrectPositions.includes(index);
+              return (
+                <span
+                  key={index}
+                  style={{
+                    color:
+                      isIncorrect && index !== currentPosition
+                        ? "red"
+                        : index < currentPosition
+                        ? "grey"
+                        : "black",
+                    textDecoration:
+                      index === currentPosition ? "underline" : "none",
+                  }}
+                >
+                  {char}
+                </span>
+              );
+            })}
+          </CardText>
+        </Card>
+      </Col>
+    </PanZoomElement>
   );
 };
 
