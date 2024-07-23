@@ -2,7 +2,7 @@
     position: relative;
     transform-origin: 0 0;
     cursor: grab;
-    user-select: none; /* Prevent text selection while dragging */
+    user-select: none; 
   }
   
   .draggable-zoomable-container:active {

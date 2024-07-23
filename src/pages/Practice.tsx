@@ -25,7 +25,7 @@ const Practice: React.FC = () => {
   );
 
   return (
-    <div className="d-flex flex-column align-item-center">
+    <div className="d-flex flex-column align-item-center overflow-hidden vh-80">
       <Lesson
         text={lessonText}
         currentPosition={currentPosition}

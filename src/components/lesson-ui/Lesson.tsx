@@ -1,6 +1,7 @@
 import React from "react";
 import PanZoomElement from "../pan-zoom-element/PanZoomElement";
 import { Card, CardText, Col } from "reactstrap";
+import "./Lesson.scss";
 
 interface LessonProps {
   text: string;
@@ -16,11 +17,11 @@ const Lesson: React.FC<LessonProps> = ({
   return (
     <PanZoomElement>
       <Col md="6" lg="8">
-        <Card body className="text-center">
+        <Card body className="text-center lesson-container">
           <CardText
             style={{
               textAlign: "left",
-              fontSize: "22px",
+              fontSize: "23px",
               letterSpacing: "1px",
             }}
           >
@@ -29,16 +30,15 @@ const Lesson: React.FC<LessonProps> = ({
               return (
                 <span
                   key={index}
-                  style={{
-                    color:
-                      isIncorrect && index !== currentPosition
-                        ? "red"
-                        : index < currentPosition
-                        ? "grey"
-                        : "black",
-                    textDecoration:
-                      index === currentPosition ? "underline" : "none",
-                  }}
+                  className={`${
+                    isIncorrect && index !== currentPosition
+                      ? "incorrect"
+                      : index < currentPosition
+                      ? "past"
+                      : index === currentPosition
+                      ? "current-letter"
+                      : "lesson-char"
+                  }`}
                 >
                   {char}
                 </span>
