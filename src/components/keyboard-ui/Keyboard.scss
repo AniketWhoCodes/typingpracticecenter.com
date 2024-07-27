@@ -1,16 +1,17 @@
 .keyboard-wrapper {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 500;
+    transform: scale(0.8);
+    width: fit-content;
 
     .keyboard {
         display: flex;
         flex-direction: column;
         background: #e1d9d9;
         padding: 0.5em;
-        border-radius: 1em;
+        border-radius: 0.3em;
         width: 600px;
         height: 215px;
-        transform: scale(0.6);
 
         .key-row {
             list-style: none;

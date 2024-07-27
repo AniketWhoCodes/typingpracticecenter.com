@@ -50,7 +50,7 @@ const DraggableZoomableComponent: React.FC<{ children: React.ReactNode }> = ({ c
   return (
     <div
       ref={containerRef}
-      className="draggable-zoomable-container d-flex justify-content-center"
+      className="draggable-zoomable-container "
       onMouseDown={handleMouseDown}
       onWheel={handleWheel}
       style={{

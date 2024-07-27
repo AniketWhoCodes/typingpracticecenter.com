@@ -16,7 +16,6 @@ const Lesson: React.FC<LessonProps> = ({
 }) => {
   return (
     <PanZoomElement>
-      <Col md="6" lg="8">
         <Card body className="text-center lesson-container">
           <CardText
             style={{
@@ -46,7 +45,6 @@ const Lesson: React.FC<LessonProps> = ({
             })}
           </CardText>
         </Card>
-      </Col>
     </PanZoomElement>
   );
 };

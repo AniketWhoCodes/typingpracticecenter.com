@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Keyboard from "../components/keyboard-ui/Keyboard";
 import Lesson from "../components/lesson-ui/Lesson";
+import Analytics from "../components/analytics-ui/Analytics";
 
 const Practice: React.FC = () => {
   const lessonText =
@@ -25,7 +26,9 @@ const Practice: React.FC = () => {
   );
 
   return (
-    <div className="d-flex flex-column align-item-center overflow-hidden vh-80">
+    <div className="d-flex flex-column align-items-center overflow-hidden"
+     style={{height:'calc(100vh - 100px )'}}>
+      <Analytics />
       <Lesson
         text={lessonText}
         currentPosition={currentPosition}

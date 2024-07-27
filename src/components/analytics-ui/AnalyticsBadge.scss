@@ -1,0 +1,14 @@
+.text-dark {
+    width: 220px;
+    margin: 0px 10px;
+
+    span {
+        padding: 0px 5px;
+    }
+    span:first-child {
+        color: grey
+    }
+    span:last-child {
+        color: rgb(98, 196, 0);
+    }
+}

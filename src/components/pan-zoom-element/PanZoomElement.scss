@@ -3,6 +3,8 @@
     transform-origin: 0 0;
     cursor: grab;
     user-select: none; 
+    width: fit-content;
+    height: fit-content;
   }
   
   .draggable-zoomable-container:active {
