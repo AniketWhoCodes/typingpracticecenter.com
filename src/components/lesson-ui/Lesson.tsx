@@ -40,7 +40,7 @@ const Lesson: React.FC<LessonProps> = ({
                       : "lesson-char"
                   }`}
                 >
-                  {char}
+                  {char===" " ? "␣" : char} 
                 </span>
               );
             })}

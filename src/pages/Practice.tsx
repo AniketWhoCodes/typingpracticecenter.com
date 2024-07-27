@@ -10,7 +10,7 @@ const Practice: React.FC = () => {
 
   const handleKeyPress = useCallback(
     (key: string) => {
-      if (lessonText[currentPosition] === key) {
+      if ( key.endsWith(lessonText[currentPosition]) || (lessonText[currentPosition]==" " && key==="space")) {
         setCurrentPosition((prevPosition) => prevPosition + 1);
       } else {
         setIncorrectPositions((prev) => {

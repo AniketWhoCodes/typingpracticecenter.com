@@ -12,7 +12,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ onKeyPress }) => {
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      const keyPressed = event.key.toLowerCase();
+      const keyPressed = event.code.toLowerCase();
       onKeyPress(keyPressed);
       const keyElement = document.getElementById(keyPressed.toUpperCase());
       if (keyElement) {
