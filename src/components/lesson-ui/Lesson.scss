@@ -1,18 +1,22 @@
-.lesson-container{
+.lesson-container {
     margin: 0;
-    max-width: 800px;
-}
-.lesson-char{
-    color: black
+    max-width: 750px;
+    background-color:transparent;
+    box-shadow:none
 }
 
-.incorrect{
+.lesson-char {
+    color: rgba(0, 0, 0, 0.822)
+}
+
+.incorrect {
     color: red;
 }
 
-.past{
+.past {
     color: grey;
 }
-.current-letter{
+
+.current-letter {
     text-decoration: underline;
 }
