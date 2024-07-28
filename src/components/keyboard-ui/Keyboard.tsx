@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useMemo } from "react";
 import "./Keyboard.scss";
 import PanZoomElement from "../pan-zoom-element/PanZoomElement";
 import keyRows from "./KeyRows";
+import getCharFromEvent from "../../utils/keyCodeMap";
 
 interface KeyboardProps {
   onKeyPress: (key: string) => void;
@@ -12,9 +13,9 @@ const Keyboard: React.FC<KeyboardProps> = ({ onKeyPress }) => {
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      const keyPressed = event.code.toLowerCase();
+      const keyPressed = getCharFromEvent(event);
       onKeyPress(keyPressed);
-      const keyElement = document.getElementById(keyPressed.toUpperCase());
+      const keyElement = document.getElementById(event.code.toUpperCase());
       if (keyElement) {
         keyElement.classList.add("hit");
         keyElement.addEventListener("animationend", () => {
