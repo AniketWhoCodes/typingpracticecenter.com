@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback, useMemo } from "react";
 import "./Keyboard.scss";
-import PanZoomElement from "../pan-zoom-element/PanZoomElement";
-import keyRows from "./KeyRows";
-import getCharFromEvent from "../../utils/keyCodeMap";
+import PanZoomElement from "../../pan-zoom-element/PanZoomElement";
+import keyRows from "../KeyRows";
+import getCharFromEvent from "../../../utils/keyCodeMap";
 
 interface KeyboardProps {
   onKeyPress: (key: string) => void;
