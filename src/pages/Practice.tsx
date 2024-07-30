@@ -37,6 +37,7 @@ const Practice: React.FC = () => {
 
   const handleKeyPress = useCallback(
     (key: string) => {
+      if (isLessonCompleted) return;
       const currentChar = lessonText[currentPosition];
       if (key === currentChar) {
         setCurrentPosition((prevPosition) => prevPosition + 1);
@@ -64,13 +65,13 @@ const Practice: React.FC = () => {
         }
       }
     },
-    [currentPosition, lessonText, sequenceCount]
+    [currentPosition, lessonText, sequenceCount, isLessonCompleted]
   );
 
   return (
     <div
       className="d-flex flex-column align-items-center overflow-hidden"
-      style={{ height: "calc(100vh - 100px )" }}
+      style={{ height: "calc(100vh - 100px)" }}
     >
       <Analytics
         totalLessonCount={lessonText.length}
