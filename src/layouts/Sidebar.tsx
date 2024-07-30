@@ -34,7 +34,7 @@ const Sidebar = () => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea")?.classList.toggle("showSidebar");
   };
-  let location = useLocation();
+  const location = useLocation();
 
   return (
     <div className="p-3">

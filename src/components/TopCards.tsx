@@ -1,6 +1,11 @@
 import { Card, CardBody } from "reactstrap";
 
-const TopCards = (props: any) => {
+type TopCardsProps = {
+  value: string;
+  title: string;
+};
+
+const TopCards = (props: TopCardsProps) => {
   return (
     <Card>
       <CardBody>
