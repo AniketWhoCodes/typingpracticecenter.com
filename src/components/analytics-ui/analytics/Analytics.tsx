@@ -11,6 +11,8 @@ type AnalyticsProps = {
   isLessonCompleted: boolean;
 };
 
+const DAILY_GOAL_MINUTES = 30;
+const LOCAL_STORAGE_KEY = "dailyProgress";
 const Analytics: React.FC<AnalyticsProps> = ({
   totalLessonCount,
   correctKeyPressed,
@@ -24,8 +26,14 @@ const Analytics: React.FC<AnalyticsProps> = ({
   const [wpmDelta, setWpmDelta] = useState<string>("0.0");
   const [accuracyDelta, setAccuracyDelta] = useState<string>("0.0");
   const [scoreDelta, setScoreDelta] = useState<string>("0.0");
+  const [dailyProgress, setDailyProgress] = useState<number>(0);
 
   useEffect(() => {
+    const storedProgress = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedProgress) {
+      setDailyProgress(parseFloat(storedProgress));
+    }
+
     if (isLessonCompleted) {
       const calculateMetrics = () => {
         const minutes = elapsedTime / 60;
@@ -65,6 +73,14 @@ const Analytics: React.FC<AnalyticsProps> = ({
         updateDeltas(newWpm, newAccuracy, newScore);
       };
       calculateMetrics();
+
+      // Update and persist the daily progress
+      const newProgress = Math.min(
+        dailyProgress + (elapsedTime / 60 / DAILY_GOAL_MINUTES) * 100,
+        100
+      );
+      setDailyProgress(newProgress);
+      localStorage.setItem(LOCAL_STORAGE_KEY, newProgress.toString());
     }
   }, [
     isLessonCompleted,
@@ -135,13 +151,18 @@ const Analytics: React.FC<AnalyticsProps> = ({
         <AnalyticsBadge label="Top speed" value="30.3wpm" delta="86%" />
         <AnalyticsBadge label="Learning rate" value="+0.2wpm/lesson" />
       </div>
-      <Progress
-        animated
-        className="my-3"
-        color="success"
-        style={{ height: "5px" }}
-        value={parseFloat(score) / 10}
-      />
+      <div className="d-flex align-items-center">
+        <AnalyticsBadge
+          label="Daily goal"
+          value={`${dailyProgress.toFixed()}% / ${DAILY_GOAL_MINUTES} mins`}
+        />
+        <Progress
+          animated
+          style={{ height: "4px", width: "65%" }}
+          color="success"
+          value={dailyProgress.toFixed()}
+        />
+      </div>
     </div>
   );
 };

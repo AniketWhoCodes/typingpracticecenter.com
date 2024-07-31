@@ -7,19 +7,22 @@ interface LessonProps {
   text: string;
   currentPosition: number;
   incorrectPositions: number[];
+  isLessonPaused: boolean;
 }
 
 const Lesson: React.FC<LessonProps> = ({
   text,
   currentPosition,
   incorrectPositions,
+  isLessonPaused
 }) => {
   let runningCharIndex = 0;
   const words = text.split(" ");
 
   return (
     <PanZoomElement>
-      <Card body className="text-center lesson-container">
+      {isLessonPaused && <span className="pause-msg">Click here or press enter to activate</span>}
+      <Card body className={`${isLessonPaused?"pause":""} text-center lesson-container`}>
         <CardText
           style={{
             textAlign: "left",

@@ -37,7 +37,6 @@ const Profile: React.FC = () => {
         {cardData.allTime.map((card, index) => (
           <Col key={index} sm="4" lg="2">
             <TopCards
-              bg="bg-light-success text-success"
               title={card.title}
               value={card.value}
             />
@@ -49,7 +48,6 @@ const Profile: React.FC = () => {
         {cardData.today.map((card, index) => (
           <Col key={index} sm="4" lg="2">
             <TopCards
-              bg="bg-light-success text-success"
               title={card.title}
               value={card.value}
             />

@@ -5,6 +5,25 @@
     box-shadow:none
 }
 
+.pause{
+    filter: blur(1.5px);
+    height: 100%;
+    width: 100%;
+    border-radius: 0px;
+}
+.pause-msg{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px; 
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: grey;
+    padding: 2px 10px ;
+}
+
 .lesson-char {
     color: rgba(0, 0, 0, 0.822)
 }

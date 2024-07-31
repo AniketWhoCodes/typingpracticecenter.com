@@ -9,14 +9,41 @@ const Practice: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState(0);
   const [incorrectPositions, setIncorrectPositions] = useState<number[]>([]);
   const [sequenceCount, setSequenceCount] = useState(1);
-  const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isLessonCompleted, setIsLessonCompleted] = useState(false);
+  const [isLessonPaused, setIsLessonPaused] = useState(false);
   const timerRef = useRef<number | null>(null);
+  const inactivityTimerRef = useRef<number | null>(null);
+
+  const resetLesson = () => {
+    setCurrentPosition(0);
+    setIncorrectPositions([]);
+    setSequenceCount(1);
+    setElapsedTime(0);
+    setIsLessonCompleted(false);
+    setIsLessonPaused(false);
+    if (timerRef.current !== null) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    if (inactivityTimerRef.current !== null) {
+      window.clearTimeout(inactivityTimerRef.current);
+      inactivityTimerRef.current = null;
+    }
+  };
+
+  const startInactivityTimer = () => {
+    if (inactivityTimerRef.current !== null) {
+      window.clearTimeout(inactivityTimerRef.current);
+    }
+    inactivityTimerRef.current = window.setTimeout(() => {
+      resetLesson();
+    }, 10000);
+  };
 
   useEffect(() => {
     if (currentPosition === 1) {
-      setStartTime(Date.now());
+      startInactivityTimer();
     }
   }, [currentPosition]);
 
@@ -37,13 +64,15 @@ const Practice: React.FC = () => {
 
   const handleKeyPress = useCallback(
     (key: string) => {
-      if (isLessonCompleted) return;
+      if (isLessonCompleted || isLessonPaused) return;
       const currentChar = lessonText[currentPosition];
       if (key === currentChar) {
         setCurrentPosition((prevPosition) => prevPosition + 1);
         setSequenceCount(1);
         if (currentPosition + 1 === lessonText.length) {
           setIsLessonCompleted(true);
+        } else {
+          startInactivityTimer();
         }
       } else {
         setIncorrectPositions((prev) => {
@@ -65,8 +94,44 @@ const Practice: React.FC = () => {
         }
       }
     },
-    [currentPosition, lessonText, sequenceCount, isLessonCompleted]
+    [
+      currentPosition,
+      lessonText,
+      sequenceCount,
+      isLessonCompleted,
+      isLessonPaused,
+    ]
   );
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (
+        !e.composedPath().some((el) => {
+          if (!(el instanceof HTMLElement)) return false;
+          return (
+            el.classList.contains("lesson-ui") ||
+            el.classList.contains("keyboard-ui")
+          );
+        })
+      ) {
+        setIsLessonPaused(true);
+      }
+    };
+
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (isLessonPaused && e.key === "Enter") {
+        resetLesson();
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    document.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, [isLessonPaused]);
 
   return (
     <div
@@ -84,6 +149,7 @@ const Practice: React.FC = () => {
         text={lessonText}
         currentPosition={currentPosition}
         incorrectPositions={incorrectPositions}
+        isLessonPaused={isLessonPaused}
       />
       <Keyboard onKeyPress={handleKeyPress} />
     </div>
