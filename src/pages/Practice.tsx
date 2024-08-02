@@ -106,14 +106,17 @@ const Practice: React.FC = () => {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (
-        !e.composedPath().some((el) => {
-          if (!(el instanceof HTMLElement)) return false;
-          return (
-            el.classList.contains("lesson-ui") ||
-            el.classList.contains("keyboard-ui")
-          );
-        })
+        e
+          .composedPath()
+          .some(
+            (el) =>
+              el instanceof HTMLElement &&
+              (el.classList.contains("lesson-container") ||
+                el.classList.contains("keyboard-wrapper"))
+          )
       ) {
+        resetLesson();
+      } else {
         setIsLessonPaused(true);
       }
     };
